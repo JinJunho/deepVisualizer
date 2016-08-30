@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+    <meta charset="utf-8">
+    <title>Netscope</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/netscope/tooltip.css">
+    <link rel="stylesheet" href="css/netscope/codemirror.css">
+    <link rel="stylesheet" href="css/netscope/netscope.css">
+    <script src="js/netscope/lib/lodash.min.js"></script>
+    <script src="js/netscope/lib/jquery.min.js"></script>
+    <script src="js/netscope/lib/jquery.qtip.min.js"></script>
+    <script src="js/netscope/lib/d3.min.js"></script>
+    <script src="js/netscope/lib/dagre-d3.min.js"></script>
+    <script src="js/netscope/lib/director.min.js"></script>
+    <script src="js/netscope/netscope.js"></script>
+</head>
+<body>
+<div id="master-container">
+    <div id='net-column' class="column">
+        <div id="net-spinner">
+            <img src="img/loading.svg" title="Loading network..." />
+        </div>
+        <div id="net-error" style="display:none">
+            <div class="title">Error Encountered</div>
+            <div class="msg"></div>
+        </div>
+        <div id="net-container">
+            <div id="net-group">
+                <h1 id="net-title"></h1>
+                <svg id="net-svg"></svg>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>
