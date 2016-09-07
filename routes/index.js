@@ -1,7 +1,6 @@
 var fs = require('fs');
 var express = require('express');
 var formidable = require('formidable');
-var pythonShell = require('python-shell');
 var router = express.Router();
 
 /* GET home page. */
@@ -19,22 +18,22 @@ router.post('/send', function(req, res, next) {
     // actual file is in path
     file = inFile;
     var dirname = "/tmp/" + file.path.split("_")[1];
+    var filename = dirname+"/"+file.name;
     fs.mkdirSync(dirname); 
-    fs.renameSync(file.path, dirname+"/"+file.name);
+    fs.renameSync(file.path, filename);
     try {
-      for (var i = 0; i < 8; i++) {
-        var options = {
-          mode: 'text',
-          scriptPath: './scripts',
-          pythonPath: '/home/junho/.miniconda2/bin/python',
-          args: [i, '/tmp/' + dirname+"/"+i+".png", dirname+"/"+file.name]
-        };
-        
-        pythonShell.run('progress_plot.py', options, function(err, results) {
-          if (err) console.log(err);
-          res.send(results);
-        });
-      }
+      var exec = require('child_process').exec;
+      var child = exec("/data/git/deepVisualizer/scripts/plot.sh " + filename, function(err, stdout, stderr) {
+        console.log('stdout: ' + stdout);
+        console.log('stderr: ' + stderr);
+        if (err !== null) {
+          console.log('exec error: ' + err);
+        }
+        else {
+          console.log('request done.');
+        }
+      });
+      res.render('grid');
     } catch (e) {
       res.send("ERROR: " + e.message);
     }

@@ -62,7 +62,8 @@ def get_data_file_type(chart_type):
   return data_file_type
 
 def get_data_file(chart_type, path_to_log):
-  return (os.path.basename(path_to_log) + '.' +
+  #return (os.path.basename(path_to_log) + '.' +
+  return (os.path.dirname(path_to_log) + "/" + os.path.basename(path_to_log) + '.' +
       get_data_file_type(chart_type).lower())
 
 def get_field_descriptions(chart_type):
@@ -142,7 +143,7 @@ def plot_chart(chart_type, path_to_png, path_to_log_list):
   plt.xlabel(x_axis_field)
   plt.ylabel(y_axis_field)
   plt.savefig(path_to_png)
-  plt.show()
+  #plt.show()
 
 def print_help():
   print """This script mainly serves as the basis of your customizations.
